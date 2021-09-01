@@ -10,14 +10,13 @@ const port = process.env.PORT;
 
 //***********MIDDLEWARES ********************** */
 
-// server.use(cors());
+server.use(cors());
 server.use(express.json());
-server.use("/books", bookRouter);
-//************Router ****************/
 
-mongoose.connect(
-  "mongodb+srv://geury:juliana123@cluster0.wf032.mongodb.net/books-store?retryWrites=true&w=majority"
-);
+//************Router ****************/
+server.use("/books", bookRouter);
+
+mongoose.connect(process.env.DATABASE);
 
 mongoose.connection.on("connected", () => {
   console.log("Successfully connected to mongoDB");

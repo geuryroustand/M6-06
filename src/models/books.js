@@ -16,7 +16,7 @@ const bookSchema = new Schema(
       type: String,
     },
     readTime: {
-      value: String,
+      value: Number,
       unit: String,
     },
     author: {
