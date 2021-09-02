@@ -23,6 +23,12 @@ const bookSchema = new Schema(
       name: String,
       avatar: String,
     },
+    bookComments: [
+      {
+        comments: String,
+        postedDate: Date,
+      },
+    ],
   },
   { timestamps: true }
 );
