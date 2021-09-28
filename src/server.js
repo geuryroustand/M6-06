@@ -4,6 +4,7 @@ import listEndpoints from "express-list-endpoints";
 import mongoose from "mongoose";
 import bookRouter from "./services/books/index.js";
 import postRouter from "./services/comments/index.js";
+import userRouter from "./services/user/index.js";
 
 const server = express();
 
@@ -17,6 +18,7 @@ server.use(express.json());
 //************Router ****************/
 server.use("/books", bookRouter);
 server.use("/comments", postRouter);
+server.use("/users", userRouter);
 
 mongoose.connect(process.env.DATABASE);
 

@@ -76,10 +76,6 @@ bookRouter.delete("/:id", async (req, res, next) => {
 
 bookRouter.post("/:id", async (req, res, next) => {
   try {
-    // const bookId = await bookModal.findById(req.params.id);
-
-    // const newBook = { ...bookId.toObject() };
-
     const addComment = await bookModal.findByIdAndUpdate(
       req.params.id,
       {
@@ -99,7 +95,6 @@ bookRouter.post("/:id", async (req, res, next) => {
 bookRouter.get("/:id/comments", async (req, res, next) => {
   const getComments = await bookModal.findById(req.params.id);
 
-  // console.log(getComments);
   res.send(getComments.bookComments);
 });
 
@@ -146,20 +141,3 @@ bookRouter.put("/:id/comments/:commentId", async (req, res, next) => {
 });
 
 export default bookRouter;
-
-// usersRouter.get("/:userId/purchaseHistory", async (req, res, next) => {
-//   try {
-//     const user = await UserModel.findById(req.params.userId)
-
-//     if (user) {
-//       res.send(user.purchaseHistory)
-//     } else {
-//       next(createError(404, `User with id ${req.params.userId} not found!`))
-//     }
-
-//     // if(!user) return next(createError(404, `User with id ${req.params.userId} not found!`))
-//     // res.send()
-//   } catch (error) {
-//     next(error)
-//   }
-// })
