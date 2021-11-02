@@ -16,13 +16,22 @@ const UserSchema = new Schema(
     email: {
       type: String,
       required: [true, "Email its required"],
+      unique: true,
     },
 
     password: {
       type: String,
       required: [true, "Password its required"],
+      select: false,
+    },
+
+    role: {
+      type: String,
+      default: "User",
+      enum: ["User", "Admin"],
     },
   },
+
   {
     timestamps: true,
   }
@@ -39,16 +48,20 @@ UserSchema.pre("save", async function (next) {
   next();
 });
 
-UserSchema.static.checkPass = async function (email, passPlain) {
-  const foundUser = await this.findOne({ email });
-  if (foundUser) {
-    const isMatch = await bcrypt.compare(plainPw, foundUser.password);
+UserSchema.statics.checkPass = async function (email, passPlain) {
+  const foundUser = await this.findOne({ email }).select("+password");
 
+  console.log(foundUser);
+
+  if (foundUser) {
+    const isMatch = await bcrypt.compare(passPlain, foundUser.password);
     if (isMatch) {
       return foundUser;
     } else {
       return null;
     }
+  } else {
+    return null;
   }
 };
 export default model("user", UserSchema);
